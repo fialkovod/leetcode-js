@@ -8,16 +8,16 @@
     if(nums.length<4) return [];
     nums.sort((n,m)=>n-m); 
     for(let i=0; i<=nums.length-4; i++) {
-        if(nums[i]>target) return res;
-        for(let j=i+1; j<=nums.length-3; j++) {     
-            if(nums[i]+nums[j]>target) break;
+        if (i>0) {while(nums[i-1]===nums[i]) i++};
+        for(let j=i+1; j<=nums.length-3; j++) { 
+            if (j>i+1) while(nums[j-1]===nums[j]) j++;
             left=j+1; right=nums.length-1;
             while(left<right) {
                 sum=nums[i]+nums[j]+nums[left]+nums[right];
                 if(sum===target) {
                     res.push([nums[i],nums[j],nums[left],nums[right]]);
-                    left++;
-                    right--;
+                    do {left++} while(nums[left-1]===nums[left]);
+                    do {right--} while(nums[right+1]===nums[right]);                    
                 } else {
                     if(sum>target) {
                         right--;
